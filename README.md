@@ -1,5 +1,4 @@
 Cybersecurity Toolkit
-Video Demo: <https://youtu.be/e9VfwJJ_hgg>
 
 Description:
 Cybersecurity Toolkit is a command-line program, written in Python, that brings together 3 small utilities inspired by the world of cyber security into a single tool:
