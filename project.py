@@ -41,7 +41,6 @@ def run_password_toolkit():
     print("\n1) check password")
     print("2) generate password")
     c = input("> ").strip()
-
     if c == "1":
         pw = input("password to check: ")
         score, notes = check_password_strength(pw)
@@ -57,7 +56,6 @@ def run_password_toolkit():
 def check_password_strength(pw):
     score = 0
     notes = []
-
     if len(pw) >= 8:
         score += 1
     else:
@@ -87,10 +85,8 @@ def check_password_strength(pw):
 
 def has_common_pattern(pw):
     pw_low = pw.lower()
-
     if pw_low in COMMON_PW:
         return True
-
     seqs = ["0123456789", "abcdefghijklmnopqrstuvwxyz"]
     for s in seqs:
         i = 0
@@ -103,18 +99,15 @@ def has_common_pattern(pw):
 def generate_secure_password(length=12):
     if length < 8:
         length = 8
-
     lower = string.ascii_lowercase
     upper = string.ascii_uppercase
     digits = string.digits
     symbols = "!?$%&*#@"
-
     chars = [random.choice(upper), random.choice(lower), random.choice(digits), random.choice(symbols)]
-
     pool = lower + upper + digits + symbols
+    
     while len(chars) < length:
         chars.append(random.choice(pool))
-
     random.shuffle(chars)
     return "".join(chars)
 
@@ -122,7 +115,6 @@ def run_cipher_toolkit():
     print("\n1) encrypt text")
     print("2) decrypt text")
     c = input("> ").strip()
-
     if c == "1":
         txt = input("text: ")
         k = ask_int("key (0-25): ")
@@ -133,7 +125,7 @@ def run_cipher_toolkit():
         print("result ->", caesar_decrypt(txt, k))
     else:
         print("invalid option")
-
+        
 def caesar_encrypt(text, key):
     out = ""
     for ch in text:
@@ -153,7 +145,6 @@ def shift_char(ch, key):
 def run_log_analyzer():
     path = input("\nlog file path (csv): ").strip()
     threshold = ask_int("suspicious attempts threshold (default 3): ", default=3)
-
     logs = parse_log_file(path)
     if not logs:
         print("no valid logs")
@@ -161,10 +152,8 @@ def run_log_analyzer():
 
     counts = count_failed_logins(logs)
     sus = flag_suspicious_ips(counts, threshold)
-
     print(f"\nrows analyzed: {len(logs)}")
     print(f"ips with at least one failure: {len(counts)}")
-
     if sus:
         print("suspicious ips:")
         for ip in sus:
@@ -185,7 +174,6 @@ def parse_log_file(path):
         if is_valid_log_row(row):
             logs.append(row)
     f.close()
-
     return logs
 
 def count_failed_logins(logs):
